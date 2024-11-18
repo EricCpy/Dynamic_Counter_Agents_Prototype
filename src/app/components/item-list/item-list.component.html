@@ -1,0 +1,13 @@
+<app-landing></app-landing>
+<div class="item-list">
+  <mat-card *ngFor="let item of items" class="item-card" [routerLink]="'/item/' + item.id">
+    <img mat-card-image [src]="item.image" alt="Item Image" />
+    <mat-card-title>{{ item.name }}</mat-card-title>
+    <mat-card-content>
+      <p>{{ item.description }}</p>
+      <p>
+        <strong>Price: {{ item.price | currency: 'USD' }}</strong>
+      </p>
+    </mat-card-content>
+  </mat-card>
+</div>

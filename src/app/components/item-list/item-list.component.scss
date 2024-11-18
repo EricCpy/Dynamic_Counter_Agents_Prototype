@@ -1,0 +1,11 @@
+.item-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  padding: 1rem;
+  justify-content: center;
+}
+
+.item-card {
+  width: 300px;
+}

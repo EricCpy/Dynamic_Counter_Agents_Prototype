@@ -1,0 +1,10 @@
+<mat-toolbar color="primary">
+  <img src="favicon.ico" alt="Logo" class="logo" />
+  <span class="company-name">ShoppingAgents</span>
+  <span class="spacer"></span>
+  <nav>
+    @for (category of categories; track category) {
+      <button mat-button>{{ category }}</button>
+    }
+  </nav>
+</mat-toolbar>
