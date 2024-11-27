@@ -4,8 +4,67 @@
   gap: 1rem;
   padding: 1rem;
   justify-content: center;
+  margin-left: 200px;
+  margin-right: 200px;
 }
 
-.item-card {
+mat-card {
+  height: 400px;
   width: 300px;
+  text-align: center;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin: 5px;
+  margin-left: 0;
+}
+
+mat-card:hover {
+  filter: brightness(0.9);
+}
+
+.product-name-price {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.product-name {
+  margin-left: 1rem;
+  font-weight: 500;
+  font-size: 20px;
+}
+
+.product-price {
+  margin-right: 1rem;
+  font-size: 22px;
+  font-weight: 500;
+}
+
+mat-card img {
+  max-height: 300px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+mat-card-title,
+mat-card-subtitle {
+  color: #002041;
+  margin: 5px;
+}
+
+mat-card-actions {
+  position: absolute; /* Absolute positioning for the button */
+  bottom: 1px; /* Aligns it to the bottom */
+  right: 1px; /* Aligns it to the right */
+  display: flex;
+  justify-content: center;
+}
+mat-button {
+  font-size: 14px;
+  color: #007bff;
+}
+
+mat-icon {
+  margin-left: 5px;
 }

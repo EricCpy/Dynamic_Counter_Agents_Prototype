@@ -1,13 +1,19 @@
 <app-landing></app-landing>
+<h2 style="margin-top: 50px; margin-left: 1rem; color: white; text-align: center">All Products</h2>
 <div class="item-list">
-  <mat-card *ngFor="let item of items" class="item-card" [routerLink]="'/item/' + item.id">
-    <img mat-card-image [src]="item.image" alt="Item Image" />
-    <mat-card-title>{{ item.name }}</mat-card-title>
+  <mat-card *ngFor="let product of products" [routerLink]="['/item', product.id]">
+    <img mat-card-image [src]="product.image" alt="{{ product.name }}" />
+    <mat-card-title>
+      <div class="product-name-price">
+        <span class="product-name">{{ product.name }}</span>
+        <span class="product-price">{{ product.price | currency: 'USD' }}</span>
+      </div>
+    </mat-card-title>
     <mat-card-content>
-      <p>{{ item.description }}</p>
-      <p>
-        <strong>Price: {{ item.price | currency: 'USD' }}</strong>
-      </p>
+      <p style="color: black; font-size: 18px">{{ product.description }}</p>
     </mat-card-content>
+    <mat-card-actions>
+      <button mat-button [routerLink]="['/item', product.id]">Buy Now</button>
+    </mat-card-actions>
   </mat-card>
 </div>

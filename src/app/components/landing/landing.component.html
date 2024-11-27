@@ -1,5 +1,51 @@
 <div class="landing">
-  <img src="assets/banner.jpg" alt="Welcome Image" class="banner" />
-  <h2>Welcome to YourCompany</h2>
-  <p>Discover amazing deals and the latest trends in every category.</p>
+  <div class="landing-left">
+    <h2>Welcome to Shopping Agents</h2>
+    <p>
+      Save more with smarter shopping. We help online shoppers make cost-effective purchases through smart tracking,
+      personalized predictions, and automated buying decisions.
+    </p>
+
+    <h3>Key Features</h3>
+    <ul>
+      <li>
+        <strong>Smart Price Monitoring:</strong> Track prices in real-time and receive alerts when the best deals are
+        available.
+      </li>
+      <li>
+        <strong>Automated Purchases:</strong> Set your target price and let our system handle the rest with automatic
+        purchase actions.
+      </li>
+      <li>
+        <strong>Premium Features:</strong> Access exclusive benefits like priority buying, limited-time sales alerts,
+        and faster transactions.
+      </li>
+    </ul>
+
+    <p>
+      Our platform integrates seamlessly with your shopping habits, delivering a convenient and hassle-free way to save
+      on products you love. Join our growing network and start making smarter buying decisions today.
+    </p>
+  </div>
+
+  <div class="landing-right">
+    <h3 style="text-align: center">Featured Products</h3>
+    <div class="product-cards-container">
+      <mat-card *ngFor="let product of products" [routerLink]="['/item', product.id]">
+        <img mat-card-image [src]="product.image" alt="{{ product.name }}" />
+        <mat-card-title>
+          <div class="product-name-price">
+            <span class="product-name">{{ product.name }}</span>
+            <span class="product-price">{{ product.price | currency: 'USD' }}</span>
+          </div>
+        </mat-card-title>
+        <mat-card-content>
+          <p style="color: black; font-size: 18px">{{ product.description }}</p>
+        </mat-card-content>
+        <mat-card-actions>
+          <button mat-button [routerLink]="['/item', product.id]">Buy Now</button>
+        </mat-card-actions>
+      </mat-card>
+    </div>
+  </div>
 </div>

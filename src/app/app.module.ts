@@ -12,7 +12,11 @@ import {CommonModule} from '@angular/common';
 import {provideRouter, RouterModule} from '@angular/router';
 import {routes} from './app.routes';
 import {ItemDetailComponent} from './components/item-detail/item-detail.component';
-import {FormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {MatInputModule} from '@angular/material/input';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatSelectModule} from '@angular/material/select';
+import {MatIconModule} from '@angular/material/icon';
 
 @NgModule({
   declarations: [AppComponent, TopMenuComponent, LandingComponent, ItemListComponent, ItemDetailComponent],
@@ -24,7 +28,12 @@ import {FormsModule} from '@angular/forms';
     MatCardModule,
     CommonModule,
     RouterModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule,
+    MatInputModule,
+    MatFormFieldModule,
+    MatSelectModule,
+    MatIconModule
   ],
   providers: [provideRouter(routes)],
   bootstrap: [AppComponent]

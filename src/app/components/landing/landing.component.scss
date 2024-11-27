@@ -1,9 +1,102 @@
+/* Landing section container */
 .landing {
-  text-align: center;
-  padding: 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  gap: 20px;
+  background: linear-gradient(to right, #003366, #007bff); /* Blue theme background */
+  color: white; /* Ensures text is white */
+  border-radius: 10px; /* Optional: rounded corners for a softer look */
+  height: 600px;
 }
 
-.banner {
+.landing-left {
+  flex: 1;
+  max-width: 49%;
+}
+
+.landing-left h2 {
+  font-size: 2.5rem;
+  color: white; /* White text for the title */
+  margin-bottom: 1rem;
+}
+
+.landing-left p {
+  font-size: 1.2rem;
+  color: #f1f1f1; /* Slightly lighter white for paragraph text */
+  line-height: 1.6;
+}
+
+.landing-right {
+  flex: 1;
+  max-width: 50%;
+}
+
+.product-cards-container {
+  display: flex;
+  flex-wrap: wrap; /* Allow wrapping if needed */
+  justify-content: center;
+  gap: 5px;
+}
+
+mat-card {
+  height: 400px;
+  width: 300px;
+  text-align: center;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin: 5px;
+  margin-left: 0;
+}
+
+mat-card:hover {
+  filter: brightness(0.9);
+}
+
+.product-name-price {
+  display: flex;
+  justify-content: space-between;
   width: 100%;
-  max-height: 500px;
+}
+
+.product-name {
+  margin-left: 1rem;
+  font-weight: 500;
+  font-size: 20px;
+}
+
+.product-price {
+  margin-right: 1rem;
+  font-size: 22px;
+  font-weight: 500;
+}
+
+mat-card img {
+  max-height: 300px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+mat-card-title,
+mat-card-subtitle {
+  color: #002041;
+  margin: 5px;
+}
+
+mat-card-actions {
+  position: absolute; /* Absolute positioning for the button */
+  bottom: 1px; /* Aligns it to the bottom */
+  right: 1px; /* Aligns it to the right */
+  display: flex;
+  justify-content: center;
+}
+mat-button {
+  font-size: 14px;
+  color: #007bff;
+}
+
+mat-icon {
+  margin-left: 5px;
 }
