@@ -16,7 +16,7 @@ export class ItemDetailComponent implements OnInit {
   maxPredictedPrice = 0;
   y: any = undefined;
   private svg: any;
-  private margin = {top: 20, right: 30, bottom: 30, left: 40};
+  private margin = {top: 20, right: 30, bottom: 40, left: 40};
   private width = 800 - this.margin.left - this.margin.right;
   private height = 400 - this.margin.top - this.margin.bottom;
 
@@ -33,21 +33,30 @@ export class ItemDetailComponent implements OnInit {
   }
 
   createChart(): void {
-    // Generate price data for one year (365 days), increasing or decreasing by max 20% monthly
+    // Generate price data for 180 days with weekly (every 7 days) price changes
     const data = [];
     let currentPrice = this.minPrice;
     let maxPrice = currentPrice;
     let minPrice = currentPrice;
 
-    for (let day = 1; day <= 365; day++) {
-      if (day % 30 === 1 && day !== 1) {
-        const changeFactor = 1 + (Math.random() * 0.4 - 0.2);
+    for (let day = 1; day <= 180; day++) {
+      if (day % 7 === 1 && day !== 1) {
+        const changeFactor = 1 + (Math.random() * 0.4 - 0.2); // Random change between -20% and +20%
         currentPrice = currentPrice * changeFactor;
       }
       minPrice = Math.min(minPrice, currentPrice);
       maxPrice = Math.max(maxPrice, currentPrice);
-      data.push({day, price: currentPrice});
+
+      // Add increasing confidence interval values
+      const initialConfidence = 0.05 * currentPrice * (day < 7 ? 0 : 1);
+      const growthFactor = 0.2; // Slow growth rate
+      const confidenceWidth = initialConfidence + growthFactor * Math.sqrt(day); // Confidence grows with the square root of time
+      const upper = currentPrice + confidenceWidth;
+      const lower = currentPrice - confidenceWidth;
+
+      data.push({day, price: currentPrice, upper, lower});
     }
+
     this.maxPredictedPrice = maxPrice;
     this.svg = d3
       .select('svg')
@@ -56,19 +65,53 @@ export class ItemDetailComponent implements OnInit {
       .append('g')
       .attr('transform', `translate(${this.margin.left},${this.margin.top})`);
 
-    const x = d3.scaleLinear().domain([1, 365]).range([0, this.width]);
+    const x = d3.scaleLinear().domain([1, 180]).range([0, this.width]);
     this.y = d3
       .scaleLinear()
-      .domain([Math.min(0, minPrice), maxPrice])
+      .domain([Math.min(0, minPrice), maxPrice * 1.2]) // Add padding for confidence interval
       .range([this.height, 0]);
 
     this.svg.append('g').attr('transform', `translate(0,${this.height})`).call(d3.axisBottom(x));
     this.svg.append('g').call(d3.axisLeft(this.y));
 
+    // X label
+    this.svg
+      .append('text')
+      .attr('x', this.width / 2)
+      .attr('y', this.height + this.margin.bottom - 3)
+      .style('text-anchor', 'middle')
+      .text('Days from now');
+
+    // Y label
+    this.svg
+      .append('text')
+      .attr('transform', 'rotate(-90)')
+      .attr('x', -this.height / 2)
+      .attr('y', -this.margin.left + 12)
+      .style('text-anchor', 'middle')
+      .text('Price in €');
+
+    // Draw confidence interval as a spline-filled area
+    this.svg
+      .append('path')
+      .datum(data)
+      .attr('fill', 'lightsteelblue')
+      .attr('opacity', 0.3)
+      .attr(
+        'd',
+        d3
+          .area()
+          .curve(d3.curveBasis)
+          .x((d: any) => x(d.day))
+          .y0((d: any) => this.y(d.lower))
+          .y1((d: any) => this.y(d.upper))
+      );
+
+    // Draw the main line with splines
     const line = d3
       .line()
-      .x((d: any) => x((d as any).day))
-      .y((d: any) => this.y((d as any).price));
+      .x((d: any) => x(d.day))
+      .y((d: any) => this.y(d.price));
 
     this.svg
       .append('path')

@@ -20,7 +20,7 @@
           margin-right: 6rem;
         ">
         <mat-form-field appearance="fill" class="price-container">
-          <mat-label>Minimum Price</mat-label>
+          <mat-label>Wanted Price</mat-label>
           <input matInput id="minPrice" type="number" [(ngModel)]="minPrice" (input)="updateMinPrice()" />
         </mat-form-field>
 
@@ -36,7 +36,7 @@
     <mat-card-title>
       <div class="product-name-price">
         <span class="product-name">{{ item.name }}</span>
-        <span class="product-price">{{ item.price | currency: 'USD' }}</span>
+        <span class="product-price">{{ item.price }}€</span>
       </div>
     </mat-card-title>
     <mat-card-content>
